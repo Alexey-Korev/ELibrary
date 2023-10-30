@@ -5,7 +5,7 @@
 </head>
 <body>
 <div class="list">
-    <a href="people">Читатели</a>
+    <a href="/people">Читатели</a>
 </div>
 <div class="list">
 <a href="/books">Книги</a>

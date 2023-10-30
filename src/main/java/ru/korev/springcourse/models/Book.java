@@ -1,34 +1,29 @@
 package ru.korev.springcourse.models;
 
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Size;
-
-import java.util.Optional;
+import jakarta.validation.constraints.*;
+import org.springframework.lang.Nullable;
 
 public class Book {
     private int id;
     private int person_id;
-    @NotEmpty(message = "Enter name of the book, please")
-    @Size(min = 1, max = 30, message = "Name should be between 1 and 30 chracters")
-    private String name;
-    @NotEmpty(message = "Enter authoe name, please")
-    @Size(min = 1, max = 30, message = "Name should be between 1 and 30 chracters")
+    @NotEmpty(message = "Type title")
+    @Size(min = 2, max = 50, message = "between 2 and 50")
+    private String title;
+    @NotEmpty(message = "Type author name")
+    @Size(min = 2, max = 50, message = "between 2 and 50")
     private String author;
+    @Max(value = 2023, message = "less than 2023")
+    @Min(value = 1500, message = "more than 1500")
     private int year;
+
     public Book() {
 
     }
-    public Book(String name, String author, int year) {
-        this.name = name;
+    public Book(int id, String title, String author, int year) {
+        this.id = id;
+        this.title = title;
         this.author = author;
         this.year = year;
-    }
-    public int getPerson_id() {
-        return person_id;
-    }
-
-    public void setPerson_id(int person_id) {
-        this.person_id = person_id;
     }
 
     public int getId() {
@@ -39,12 +34,20 @@ public class Book {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getPerson_id() {
+        return person_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPerson_id(int person_id) {
+        this.person_id = person_id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getAuthor() {

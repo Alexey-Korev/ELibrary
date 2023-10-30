@@ -2,21 +2,26 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title th:text="${book.getName()}">Книга</title>
+    <title th:text="${book.getTitle()}">Книга</title>
 </head>
 <body>
-<p th:text="${book.getName() + ', ' + book.getAuthor()}
-+ ', ' + book.getYear()}">VALUE</p>
+<div class="frame">
+    <p th:text="${book.getTitle()} + ', ' + ${book.getAuthor()}
+    + ', ' + ${book.getYear()}">VALUE</p>
+</div>
 <br/>
-<div th:if="${person}">
-        <p th:text="'Книга находится У: ' + ${person.getName()}"></p>
+<div th:if="${reader}">
+        <p th:text="'Книга находится У: ' + ${reader.getName()}"></p>
     </div>
-<div th:unless="${person}">
+<div th:unless="${reader}">
+    <form>
     <p>Эта книга свободна. Кому ее назначить?</p>
-    <div th:each="person : ${people}">
-        <a th:href="@{/people/{id}(id=${person.getId()})}"
-           th:text="${person.getName()}">person</a>
-    </div>
+        <select th:object="${person}" th:field="*{id}" name="person">
+            <option th:each="person : ${people}" th:value="${person.getId()}"
+                    th:text="${person.getName}">
+            </option>
+        </select>
+    </form>
     </p>
 </div>
 
@@ -26,5 +31,6 @@
 <form th:method="DELETE" th:action="@{/books/{id}(id=${book.getId()})}">
     <input type="submit" value="Удалить"/>
 </form>
+<input type="button" onclick="history.back();" value="Назад"/>
 </body>
 </html>

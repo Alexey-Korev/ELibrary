@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Главная</title>
+    <title>Книги</title>
 </head>
 <body>
 <div class="main">
     <div class="list" th:each="book : ${books}">
         <a th:href="@{/books/{id}(id=${book.getId()})}"
-           th:text="${book.getName()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}">book</a>
+           th:text="${book.getTitle()} + ', ' + ${book.getAuthor()} + ', ' + ${book.getYear()}">book</a>
     </div>
     <hr/>
     <div class="list">
@@ -18,5 +18,6 @@
         <a th:href="@{/}">На домашнюю страницу</a>
     </div>
 </div>
+<input type="button" onclick="history.back();" value="Назад"/>
 </body>
 </html>

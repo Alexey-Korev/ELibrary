@@ -10,6 +10,7 @@ public class Person {
     @Min(value = 1940, message = "birth year should be more than 1940")
     @Max(value = 2016, message = "birth year should be less than 2016")
     private int year;
+
     public Person() {
 
     }
