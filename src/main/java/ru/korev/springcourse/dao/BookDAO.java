@@ -27,16 +27,20 @@ public class BookDAO {
                 new BookRowMapper(), id);
     }
     public List<Book> getBooksOfPerson(int id) {
-        String sql = "SELECT * FROM book WHERE person_id =?";
-        return jdbcTemplate.query(sql, new Object[]{id}, new BeanPropertyRowMapper<>(Book.class));
+        String sql = "SELECT b.id, b.title, b.author, b.year FROM person p JOIN book b ON p.id = b.person_id WHERE p.id =?";
+        return jdbcTemplate.query(sql, new Object[]{id}, new BookRowMapper());
     }
     public void save(Book book) {
         jdbcTemplate.update("INSERT INTO Book(title, author, year) VALUES (?,?,?)",
         book.getTitle(), book.getAuthor(), book.getYear());
     }
     public void update(int id, Book updateBook) {
-        jdbcTemplate.update("UPDATE Book SET title=?, author=?, year=? WHERE id=?",
-                updateBook.getTitle(), updateBook.getAuthor(), updateBook.getYear(), id);
+        jdbcTemplate.update("UPDATE Book SET person_id=?, title=?, author=?, year=? WHERE id=?",
+                updateBook.getPerson_id(), updateBook.getTitle(), updateBook.getAuthor(), updateBook.getYear(), id);
+    }
+    public void freeBook(int id) {
+        jdbcTemplate.update("UPDATE book SET person_id = null WHERE id=?",
+                id);
     }
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Book WHERE id=?", id);

@@ -69,6 +69,19 @@ public class BooksController {
         bookDAO.update(id, book);
         return "redirect:/books";
     }
+    @PatchMapping("/{id}/person")
+    public String giveBookToPerson(@ModelAttribute("person") Person person,
+                                   @PathVariable("id") int id) {
+        Book book = bookDAO.show(id);
+        book.setPerson_id(person.getId());
+        bookDAO.update(id, book);
+        return "redirect:/books/{id}";
+    }
+    @PatchMapping("/{id}/free")
+    public String freeBook(@PathVariable("id") int id) {
+        bookDAO.freeBook(id);
+        return "redirect:/books/{id}";
+    }
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
         bookDAO.delete(id);
