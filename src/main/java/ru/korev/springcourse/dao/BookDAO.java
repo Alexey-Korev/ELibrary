@@ -9,8 +9,9 @@ import ru.korev.springcourse.models.Book;
 
 import java.util.List;
 
-@Component
+//@Component
 public class BookDAO {
+/*
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -45,6 +46,7 @@ public class BookDAO {
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Book WHERE id=?", id);
     }
+*/
 
 }
 

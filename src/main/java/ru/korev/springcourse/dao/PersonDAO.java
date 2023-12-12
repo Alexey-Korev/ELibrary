@@ -8,12 +8,12 @@ import ru.korev.springcourse.models.Person;
 
 import java.util.List;
 
-@Component
+//@Component
 public class PersonDAO {
+/*
 
     private final JdbcTemplate jdbcTemplate;
 
-    @Autowired
     public PersonDAO(JdbcTemplate jdbcTemplate){
         this.jdbcTemplate = jdbcTemplate;
     }
@@ -45,5 +45,6 @@ public class PersonDAO {
     public void delete(int id) {
         jdbcTemplate.update("DELETE FROM Person WHERE id=?", id);
     }
+*/
 
 }

@@ -10,31 +10,43 @@ import ru.korev.springcourse.dao.BookDAO;
 import ru.korev.springcourse.dao.PersonDAO;
 import ru.korev.springcourse.models.Book;
 import ru.korev.springcourse.models.Person;
+import ru.korev.springcourse.services.BooksService;
+import ru.korev.springcourse.services.PeopleService;
 
 import java.util.List;
 
 @Controller
 @RequestMapping("/people")
 public class PeopleController {
-    private final PersonDAO personDAO;
-    private final BookDAO bookDAO;
+    private final PeopleService peopleService;
+    private final BooksService booksService;
 
     @Autowired
-    public PeopleController(PersonDAO personDAO, BookDAO bookDAO) {
-        this.personDAO = personDAO;
-        this.bookDAO = bookDAO;
+    public PeopleController(PeopleService peopleService, BooksService booksService) {
+        this.peopleService = peopleService;
+        this.booksService = booksService;
     }
 
     @GetMapping()
     public String index(Model model){
-        model.addAttribute("people", personDAO.index());
+        model.addAttribute("people", peopleService.findAll());
         return "people/index";
     }
+    /*@GetMapping("/{id}")
+    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
+        List<Book> books = booksService.findBooksByPerson(person);
+        model.addAttribute("person", peopleService.findOne(id));
+        if(!books.isEmpty()) {
+            model.addAttribute("books", books);
+        }
+        return "people/show";
+    }*/
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
-        List<Book> books = bookDAO.getBooksOfPerson(id);
-        model.addAttribute("person", personDAO.showPerson(id));
-        if(!books.isEmpty()) {
+        Person person = peopleService.findOne(id);
+        List<Book> books = booksService.findBooksByPerson(person);
+        model.addAttribute("person", person);
+        if (!books.isEmpty()) {
             model.addAttribute("books", books);
         }
         return "people/show";
@@ -49,12 +61,12 @@ public class PeopleController {
                          BindingResult bindingResult){
         if (bindingResult.hasErrors() )
             return "people/new";
-        personDAO.save(person);
+        peopleService.save(person);
         return "redirect:/people";
     }
     @GetMapping("/{id}/edit")
     public String edit(Model model, @PathVariable("id") int id) {
-        model.addAttribute("person", personDAO.showPerson(id));
+        model.addAttribute("person", peopleService.findOne(id));
         return "people/edit";
     }
     @PatchMapping("/{id}")
@@ -64,13 +76,13 @@ public class PeopleController {
         if (bindingResult.hasErrors() )
             return "people/edit";
 
-        personDAO.update(id, person);
+        peopleService.update(id, person);
         return "redirect:/people";
     }
 
     @DeleteMapping("/{id}")
     public String delete(@PathVariable("id") int id) {
-        personDAO.delete(id);
+        peopleService.delete(id);
         return "redirect:/people";
     }
 
