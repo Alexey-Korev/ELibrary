@@ -2,7 +2,6 @@ package ru.korev.springcourse.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "Book")
@@ -23,7 +22,7 @@ public class Book {
     private int year;
     @ManyToOne
     @JoinColumn(name = "person_id", referencedColumnName = "id")
-    private Person person;
+    private Person reader;
 
     public Book() {
 
@@ -75,11 +74,11 @@ public class Book {
         this.year = year;
     }
 
-    public Person getPerson() {
-        return person;
+    public Person getReader() {
+        return reader;
     }
 
-    public void setPerson(Person person) {
-        this.person = person;
+    public void setReader(Person person) {
+        this.reader = person;
     }
 }

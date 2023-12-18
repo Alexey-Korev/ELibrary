@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface PeopleRepository extends JpaRepository <Person, Integer> {
+public interface PeopleRepository extends JpaRepository<Person, Integer> {
 
     Optional<Person> findByName(String title);
 

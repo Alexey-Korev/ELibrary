@@ -18,7 +18,7 @@ public class Person {
     @Min(value = 1940, message = "birth year should be more than 1940")
     @Max(value = 2016, message = "birth year should be less than 2016")
     private int year;
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "reader")
     private List<Book> books;
 
     public Person() {
@@ -61,5 +61,12 @@ public class Person {
 
     public void setBooks(List<Book> books) {
         this.books = books;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

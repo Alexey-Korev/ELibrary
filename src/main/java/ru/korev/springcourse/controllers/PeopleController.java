@@ -32,15 +32,6 @@ public class PeopleController {
         model.addAttribute("people", peopleService.findAll());
         return "people/index";
     }
-    /*@GetMapping("/{id}")
-    public String show(@PathVariable("id") int id, Model model, @ModelAttribute("person") Person person) {
-        List<Book> books = booksService.findBooksByPerson(person);
-        model.addAttribute("person", peopleService.findOne(id));
-        if(!books.isEmpty()) {
-            model.addAttribute("books", books);
-        }
-        return "people/show";
-    }*/
     @GetMapping("/{id}")
     public String show(@PathVariable("id") int id, Model model) {
         Person person = peopleService.findOne(id);

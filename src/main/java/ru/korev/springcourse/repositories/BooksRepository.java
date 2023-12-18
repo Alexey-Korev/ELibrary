@@ -12,10 +12,7 @@ import java.util.List;
 
 @Repository
 public interface BooksRepository extends JpaRepository<Book, Integer> {
-    /*@Query("SELECT b.id, b.title, b.author, b.year FROM Person p JOIN Book b ON p.id = b.person.id WHERE p.id = :id")
-    List<Book> findBooksByPerson(@Param("id") int id);*/
-    List<Book> findBooksByPerson(Person person);
-    @Modifying
-    @Query("UPDATE Book SET person.id = null WHERE id=:id")
-    void freeBook(int id);
+    Book findByTitle(String title);
+    List<Book> findByTitleStartingWithIgnoreCase (String startString);
+    List<Book> findBooksByReader(Person reader);
 }
